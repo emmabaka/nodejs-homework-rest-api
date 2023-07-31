@@ -12,18 +12,17 @@ const login = async (req, res, next) => {
     throw HttpError(401, "Email or password is wrong");
   }
   const passwordCompare = await bcrypt.compare(password, user.password);
-  console.log(user);
   if (!passwordCompare) {
     throw HttpError(401, "Email or password is wrong");
   }
   const payload = { id: user._id };
 
-  const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
+  const token = jwt.sign(payload, SECRET, { expiresIn: "30d" });
   await User.findByIdAndUpdate(user._id, { token });
 
   res.status(201).json({
     token,
-    user: { name: user.name, password: user.password },
+    user: { name: user.name, email: user.email },
   });
 };
 
