@@ -1,10 +1,9 @@
 const current = async (req, res, next) => {
-  const { email, name, avatarURL, subscription } = req.user;
+  const { email, name } = req.user;
+
   res.json({
     email,
     name,
-    avatarURL,
-    subscription,
   });
 };
 
